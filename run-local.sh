@@ -1,3 +1,3 @@
 time spark-submit \
-    .worker/worker.py \
+    ./worker/worker.py \
     sample-req-local.json

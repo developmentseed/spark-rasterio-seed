@@ -4,6 +4,12 @@ import errno
 import json
 from urlparse import urlparse
 
+import boto3
+import rasterio
+from rasterio._io import virtual_file_to_buffer
+
+APP_NAME = 'spark-rasterio-seed'
+
 
 def get_filename(uri):
     return os.path.splitext(os.path.basename(uri))[0]
@@ -90,6 +96,9 @@ def run_spark_job():
     from pyspark import SparkConf, SparkContext
     from pyspark.accumulators import AccumulatorParam
 
+    conf = SparkConf().setAppName(APP_NAME)
+    sc = SparkContext(conf=conf)
+
     request_uri = sys.argv[1]
 
     # Read & parse argument, which should be a local path or s3:// uri to a
@@ -105,15 +114,17 @@ def run_spark_job():
         request = json.loads(o["Body"].read())
 
     # modify this to suit your argument data
-    data = reqest['data']
+    data = request['data']
     output = request['output']
 
-    def make_image_job(image_uri):
-        return (image_url, os.path.join(output, get_filename(image_uri)))
+    def make_copy_job(image_uri):
+        return (image_uri, os.path.join(output, get_filename(image_uri)))
 
     my_rdd = sc.parallelize(data)
-    my_rdd.map(make_copy_job)
-    .foreach(copy_image)
+    (
+            my_rdd.map(make_copy_job)
+            .foreach(copy_image)
+    )
 
     print "Done."
 

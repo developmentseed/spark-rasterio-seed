@@ -1,6 +1,6 @@
 {
     "data": [
-        "/path/to/file.tif"
+        "temp/test.tif"
     ],
     "output": "/tmp"
 }
