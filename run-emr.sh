@@ -7,19 +7,18 @@
 : ${KEY_NAME:="your-key-name"}
 REQUEST=$1
 
-MASTER_INSTANCE=m3.xlarge
-MASTER_PRICE=0.15
+: ${MASTER_INSTANCE:="m3.xlarge"}
+: ${MASTER_PRICE:="0.15"}
 
-WORKER_INSTANCE=m3.xlarge
-WORKER_PRICE=0.15
+: ${WORKER_INSTANCE:="m3.xlarge"}
+: ${WORKER_PRICE:="0.15"}
 
-# This is how many works beyond the 2 reserve instances
-WORKER_COUNT=8
+: ${WORKER_COUNT:="8"}
 
-DRIVER_MEMORY=4G
-NUM_EXECUTORS=20
-EXECUTOR_MEMORY=5G
-EXECUTOR_CORES=2
+: ${DRIVER_MEMORY:="4G"}
+: ${NUM_EXECUTORS:="20"}
+: ${EXECUTOR_MEMORY:="5G"}
+: ${EXECUTOR_CORES:="2"}
 
 aws emr create-cluster \
   --name "$APP_NAME" \
