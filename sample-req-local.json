@@ -1,0 +1,6 @@
+{
+    "data": [
+        "/path/to/file.tif"
+    ],
+    "output": "/tmp"
+}
