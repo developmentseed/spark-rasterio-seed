@@ -118,7 +118,8 @@ def run_spark_job():
     output = request['output']
 
     def make_copy_job(image_uri):
-        return (image_uri, os.path.join(output, get_filename(image_uri)))
+        dest_uri = os.path.join(output, get_filename(image_uri)) + '.tif'
+        return (image_uri, dest_uri)
 
     my_rdd = sc.parallelize(data)
     (
