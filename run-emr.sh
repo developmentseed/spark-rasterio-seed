@@ -1,10 +1,10 @@
 # usage:
 # ./run-emr.sh s3://path/to/request/arguments.json
 
-APP_NAME="My App"
-LOG_BUCKET=s3://my-bucket/logs
-CONFIG_BUCKET=s3://my-bucket/config
-KEY_NAME=your-key-name
+: ${APP_NAME:="My App"}
+: ${LOG_BUCKET:="s3://my-bucket/logs"}
+: ${CONFIG_BUCKET:="s3://my-bucket/config"}
+: ${KEY_NAME:="your-key-name"}
 REQUEST=$1
 
 MASTER_INSTANCE=m3.xlarge
